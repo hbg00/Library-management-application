@@ -1,0 +1,18 @@
+﻿@using BookStore.ViewModels;
+@model LoginViewModel;
+@{
+    ViewData["Title"] = "Login";   
+}
+@if(TempData["Error"] != null)
+{
+    <div >
+        <p>@TempData["Error"]</p>
+    </div>
+}
+<form asp-action="Login">
+    <label asp-for="Email">Login:</label>
+    <input asp-for="Email"/>
+    <label asp-for="Password">Password:</label>
+    <input asp-for="Password" type="password"/>
+    <input type="submit" value="Log in"/>
+</form>
