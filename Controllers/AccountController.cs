@@ -41,7 +41,7 @@ namespace BookStore.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
                     if (result.Succeeded) 
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Dashboard");
                     }
                 }
                 TempData["Error"] = "Password is invalid.";
@@ -50,7 +50,12 @@ namespace BookStore.Controllers
             TempData["Error"] = "Email is invalid.";
             return View(loginVM);
         }
-
+        [HttpGet]
+        public async Task<IActionResult> Logout() 
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
         public void RegisterUser()
         {
 

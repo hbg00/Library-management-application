@@ -2,7 +2,7 @@
 
 namespace BookStore.Controllers
 {
-    public class HomeController : Controller
+    public class DashboardController : Controller
     {
         public IActionResult Index()
         {
