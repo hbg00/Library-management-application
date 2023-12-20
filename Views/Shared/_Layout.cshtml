@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 
+
 @inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +20,7 @@
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container-fluid">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                            aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -34,9 +36,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Actions with users</a>
                                 </li>
-                                
+
                             }
-                            
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Edit profile</a>
                             </li>

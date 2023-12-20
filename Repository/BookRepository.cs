@@ -1,6 +1,7 @@
 ﻿using BookStore.Data;
 using BookStore.Interfaces;
 using BookStore.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Repository
 {
@@ -14,34 +15,45 @@ namespace BookStore.Repository
      
         public async Task<IEnumerable<Book>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Books
+                .Include(l => l.Language)
+                .Include(p => p.Publisher)
+                .ToListAsync();
         }
 
-        public Task<Book?> GetByIdAsync(int id)
+        public async Task<Book?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Books
+                .FirstOrDefaultAsync(b =>b.Id == id);
+        }
+
+        public async Task<IEnumerable<Book>> GetBookByName(string name)
+        {
+            return await _context.Books
+                .Where(b => b.Title.Contains(name))
+                .ToListAsync();
         }
 
         public bool Add(Book book)
         {
             _context.Add(book);
-            return true;
+            return Save();
         }
 
         public bool Delete(Book book)
         {
             _context.Remove(book);
-            return true;
+            return Save();
         }
         public bool Update(Book book)
         {
             _context.Update(book);
-            return true;
+            return Save();
         }
         public bool Save()
         {
             var saved = _context.SaveChanges();
-            return saved > 0;
+            return saved > 0 ? true : false;
         }
     }
 }

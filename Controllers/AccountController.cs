@@ -1,9 +1,9 @@
 ﻿using BookStore.Data;
 using BookStore.Models;
 using BookStore.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace BookStore.Controllers
 {
@@ -12,18 +12,23 @@ namespace BookStore.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly LibraryDbContext _context;
-        public AccountController(LibraryDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly ILogger<AccountController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AccountController(IHttpContextAccessor httpContextAccessor ,ILogger<AccountController> logger, LibraryDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
+            _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
         [HttpGet]
+        [Route("LibraryApp")]
         public IActionResult Login()
         {
             var loginVM = new LoginViewModel();
-
             return View(loginVM);
         }
 
@@ -38,10 +43,10 @@ namespace BookStore.Controllers
                 var passwordCheck = await _userManager.CheckPasswordAsync(user, loginVM.Password);
                 if (passwordCheck) 
                 {
-                    var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
+                    var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password,false,false);
                     if (result.Succeeded) 
                     {
-                        return RedirectToAction("Index", "Dashboard");
+                        return RedirectToAction("Index", "Book");
                     }
                 }
                 TempData["Error"] = "Password is invalid.";
@@ -50,16 +55,26 @@ namespace BookStore.Controllers
             TempData["Error"] = "Email is invalid.";
             return View(loginVM);
         }
+
         [HttpGet]
         public async Task<IActionResult> Logout() 
         {
-            await _signInManager.SignOutAsync();
+    
+            await _httpContextAccessor.HttpContext.SignOutAsync();
+            ClearCookies();
             return RedirectToAction("Login", "Account");
         }
+
         public void RegisterUser()
         {
 
 
+        }
+
+        public  void ClearCookies()
+        {
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete(".AspNetCore.Identity.Application");
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete(".AspNetCore.Antiforgery.MoniFWH1kX0");
         }
     }
 }

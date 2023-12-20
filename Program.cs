@@ -1,5 +1,7 @@
 using BookStore.Data;
+using BookStore.Interfaces;
 using BookStore.Models;
+using BookStore.Repository;
 using BookStore.Seed;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -15,24 +17,28 @@ namespace BookStore
             
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
             builder.Services.AddDbContext<LibraryDbContext>
                 (options => options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDbConnection")));
             
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+            
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<LibraryDbContext>();
-
             builder.Services.AddMemoryCache();
             builder.Services.AddSession();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();
-            
+                   .AddCookie();
+
+
             var app = builder.Build();
 
             // Seeding 
             if (args.Length == 1 && args[0].ToLower() == "seeddata")
             {
-               //LibrarySeeder.SeedDatat(app);
-               LibrarySeeder.SeedUsersAndRoles(app);
+             
+               //LibrarySeeder.SeedData(app);
+               //LibrarySeeder.SeedUsersAndRoles(app);
             }
 
             // Configure the HTTP request pipeline.
@@ -43,10 +49,10 @@ namespace BookStore
                 app.UseHsts();
             }
 
-           
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

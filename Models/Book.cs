@@ -10,10 +10,12 @@ namespace BookStore.Models
         public string? ISBN { get; set; }
         public string? Title { get; set; }
         public string? Description {  get; set; }
+        public int? NumberOfCopies { get; set; }
         //Photo 
 
         [ForeignKey("Language")]
         public int? IdLanguage {  get; set; }
+        public Language? Language { get; set; }  
         
         [ForeignKey("Publisher")]
         public int? IdPublisher {  get; set; }

@@ -1,14 +1,17 @@
-﻿@using BookStore.ViewModels;
+﻿﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+
+@using BookStore.ViewModels;
 @model LoginViewModel;
-@{
-    ViewData["Title"] = "Login";   
-}
+
+
 @if(TempData["Error"] != null)
 {
     <div >
         <p>@TempData["Error"]</p>
     </div>
 }
+
 <form asp-action="Login">
     <label asp-for="Email">Login:</label>
     <input asp-for="Email"/>
