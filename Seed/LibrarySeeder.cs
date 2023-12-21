@@ -1,4 +1,5 @@
 ﻿using BookStore.Data;
+using BookStore.Data.Enum;
 using BookStore.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -11,28 +12,8 @@ namespace BookStore.Seed
             using(var serviceScope = applicationBuilder.ApplicationServices.CreateScope()) 
             {
                 var context = serviceScope.ServiceProvider.GetService<LibraryDbContext>();
-                
-                context.Database.EnsureCreated();
 
-                if (!context.Languages.Any())
-                {
-                    context.Languages.AddRange(new List<Language>()
-                    {
-                        new Language()
-                        {
-                            Name = "Polish"
-                        },
-                        new Language()
-                        {
-                            Name = "English"
-                        },
-                        new Language()
-                        {
-                            Name = "German"
-                        }
-                    });
-                    context.SaveChanges();
-                }
+                context.Database.EnsureCreated();
 
                 if (!context.Books.Any())
                 {
@@ -43,7 +24,7 @@ namespace BookStore.Seed
                             ISBN = "8373272267",
                             Title = "Lalka",
                             Description = "Wydanie z opracowaniem. Do Warszawy powraca Stanisław Wokulski. Jego plenipotent, Ignacy Rzecki, bacznie śledzi wszystkie plotki krążące wokół jego przyjaciela. Nie ma pojęcia o wielkim i jeszcze skrywanym uczuciu Wokulskiego do pięknej i próżnej Izabeli Łęckiej. Czy głęboka miłość galanteryjnego kupca do szlachcianki może zakończyć się szczęśliwie?",
-                            IdLanguage = 1,
+                            Language = Languages.Polish,
                             NumberOfCopies = 3,
                             Publisher = new Publisher
                             {
@@ -76,7 +57,7 @@ namespace BookStore.Seed
                             " detektyw, słynie ze swojej sprawności intelektualnej i umiejętnego stosowania rozumowania dedukcyjnego" +
                             " (nieco błędnie – patrz rozumowanie indukcyjne) i wnikliwej obserwacji w celu rozwiązania trudnych przypadków." +
                             " Jest prawdopodobnie najsłynniejszym fikcyjnym detektywem",
-                            IdLanguage = 1,
+                            Language = Languages.Polish,
                             NumberOfCopies = 2,
                             Publisher = new Publisher
                             {
@@ -116,7 +97,7 @@ namespace BookStore.Seed
                             "Żelaznym Tronie Zachodnich Krain, lecz obalony władca pozostawił po sobie potomstwo, równie szalone jak on sam. Tron objął " +
                             "Robert – najznamienitszy z buntowników. Minęły już lata pokoju i oto możnowładcy zaczynają grę o tron. Na podstawie " +
                             "\"Gry o tron\" ukazał się serial w telewizji HBO.",
-                            IdLanguage = 1,
+                            Language = Languages.Polish,
                             NumberOfCopies = 1,
                             Publisher = new Publisher
                             {
@@ -152,7 +133,7 @@ namespace BookStore.Seed
                             " jest niezwykle zaradnym życiowo, doskonałym organizatorem. Kłapouchy nieustannie narzeka, jednakże jest przy tym bardzo" +
                             " inteligentny, odpowiedzialny i uczynny. Prosiaczek jest co prawda podszyty tchórzem, jednakże stara się dotrzymywać" +
                             " przyrzeczeń i wszystkich traktuje z jednakową życzliwością.",
-                            IdLanguage = 1,
+                            Language = Languages.Polish,
                             NumberOfCopies = 5,
                             Publisher = new Publisher
                             {
@@ -185,7 +166,7 @@ namespace BookStore.Seed
                             " próby tworzenia w ich społeczności struktur wojskowych. Dla członków grupy ważne" +
                             " są takie wartości, jak: honor, odwaga, bohaterstwo i braterstwo, jednak wartością" +
                             " nadrzędną zdaje się być dla nich wierność sprawie. Ich postawę przyrównywać można do patriotyzmu.",
-                            IdLanguage = 1,
+                            Language = Languages.Polish,
                             NumberOfCopies = 6,
                             Publisher = new Publisher
                             {
@@ -211,7 +192,7 @@ namespace BookStore.Seed
                             " opowieść ta rzuca na czytelnika czar, od którego nawet po zakończeniu lektury trudno się uwolnić." +
                             " W ciągu pięćdziesięciu przeszło lat od pierwszego wydania \"Władcy Pierścieni\" miliony ludzi na" +
                             " całym świecie uległy temu urokow",
-                            IdLanguage = 1,
+                            Language = Languages.Polish,
                             NumberOfCopies = 10,
                             Publisher = new Publisher
                             {

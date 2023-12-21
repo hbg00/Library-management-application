@@ -9,13 +9,13 @@ namespace BookStore.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly LibraryDbContext _context;
         private readonly ILogger<AccountController> _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public AccountController(IHttpContextAccessor httpContextAccessor ,ILogger<AccountController> logger, LibraryDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly LibraryDbContext _context;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        public AccountController(ILogger<AccountController> logger, IHttpContextAccessor httpContextAccessor,
+            LibraryDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
@@ -25,7 +25,6 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
-        [Route("LibraryApp")]
         public IActionResult Login()
         {
             var loginVM = new LoginViewModel();

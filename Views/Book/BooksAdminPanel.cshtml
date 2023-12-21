@@ -1,0 +1,31 @@
+﻿@using BookStore.ViewModels
+@model IEnumerable<Book>
+
+<div class="seraching-bar">
+    <a asp-controller="Book" asp-action="Create">Add new book</a>
+    <form>
+        <input />
+        <input type="submit"/>
+    </form>
+</div>
+<div class="data">
+    @if (Model != null)
+    {
+        <table>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Title</td>
+                    <td><a asp-controller="Book" asp-action="DetailBook" asp-route-id="@book.Id">View</a></td>
+                    <td><a asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id">Edit</a></td>
+                    <td><a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id">Delete</a></td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>There are no books in the database yet.</p>
+    }
+</div>

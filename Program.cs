@@ -37,7 +37,7 @@ namespace BookStore
             if (args.Length == 1 && args[0].ToLower() == "seeddata")
             {
              
-               //LibrarySeeder.SeedData(app);
+               LibrarySeeder.SeedData(app);
                //LibrarySeeder.SeedUsersAndRoles(app);
             }
 

@@ -13,6 +13,5 @@ namespace BookStore.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Address> Addresss { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
-        public DbSet<Language> Languages {  get; set; }
     }
 }

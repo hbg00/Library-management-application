@@ -1,31 +1,38 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<User> SignInManager
-
-@using BookStore.ViewModels
+﻿@using BookStore.ViewModels
 @model IEnumerable<Book>
 
 
-<div class="seraching-bar">
-    <input />
+<div class="seraching-bar-user">
+    <form>
+        <input />
+        <input type="submit" />
+    </form>
 </div>
 <div class="data">
-    @foreach(var book in Model )
+    @if(Model != null)
     {
-        <div class="book">
-            <div class="h">
-                photosomeday
+        @foreach(var book in Model )
+        {
+            <div class="book">
+                <div class="h">
+                    photosomeday
+                </div>
+                <div class="d">
+                    <h7>@book.Title</h7>
+                    <br>
+                    <br>
+                    <span>@book.Publisher.FirstName </span>
+                    <span>@book.Publisher.LastName</span>
+                </div>
+                <div class="c">
+                    <a class="dashboard-buttons" type="button" asp-controller="Book" asp-action="DetailBook" asp-route-id="@book.Id">View</a>
+                    <a class="dashboard-buttons" type="button" asp-controller="Book" asp-action="BorrowBook" asp-route-id="@book.Id">Borrow</a>
+                </div>
             </div>
-            <div class="d">
-                <h7>@book.Title</h7>
-                <br>
-                <br>
-                <span>@book.Publisher.FirstName </span>
-                <span>@book.Publisher.LastName</span>
-            </div>
-            <div class="c">
-                <a class="dashboard-buttons" type="button" asp-controller="Book" asp-action="DetailBook" asp-route-id="@book.Id">View</a>
-                <a class="dashboard-buttons" type="button" asp-controller="" asp-action="" asp-route-id="@book.Id">Rent</a>
-            </div>
-        </div>
+        }
+    }
+    else
+    {
+        <p>There are no books in the database yet.</p>
     }
 </div>

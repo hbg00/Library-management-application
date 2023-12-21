@@ -5,7 +5,8 @@ namespace BookStore.Interfaces
     public interface IBookRepository
     {
         Task<IEnumerable<Book>> GetAll();
-        Task<Book?> GetByIdAsync(int id);   
+        Task<Book?> GetByIdAsync(int id);
+        Task<Book?> GetByIdAsyncForNumberOfCopies(int id);
         Task<IEnumerable<Book>> GetBookByName(string name);
         bool Add(Book book);
         bool Update(Book book);

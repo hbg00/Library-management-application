@@ -1,0 +1,13 @@
+﻿@model Book
+
+@if (Model.NumberOfCopies > 0)
+{
+    <form asp-action="BorrowBookConfirm">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Confirm"/>
+    </form>
+}
+else
+{
+    <p>Sorry, this book is not avalible now.</p>    
+}

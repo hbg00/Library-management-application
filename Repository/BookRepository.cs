@@ -16,7 +16,6 @@ namespace BookStore.Repository
         public async Task<IEnumerable<Book>> GetAll()
         {
             return await _context.Books
-                .Include(l => l.Language)
                 .Include(p => p.Publisher)
                 .ToListAsync();
         }
@@ -24,7 +23,14 @@ namespace BookStore.Repository
         public async Task<Book?> GetByIdAsync(int id)
         {
             return await _context.Books
-                .FirstOrDefaultAsync(b =>b.Id == id);
+                .Include(p => p.Publisher)
+                .FirstOrDefaultAsync(b => b.Id == id);
+        }
+
+        public async Task<Book?> GetByIdAsyncForNumberOfCopies(int id) 
+        {
+            return await _context.Books
+                .FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public async Task<IEnumerable<Book>> GetBookByName(string name)
@@ -53,7 +59,7 @@ namespace BookStore.Repository
         public bool Save()
         {
             var saved = _context.SaveChanges();
-            return saved > 0 ? true : false;
+            return saved > 0;
         }
     }
 }

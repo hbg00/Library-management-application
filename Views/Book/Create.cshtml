@@ -1,0 +1,38 @@
+﻿@using BookStore.Data.Enum;
+@using BookStore.ViewModels
+@model CreateBookViewModel
+<h1>Adding new book to database.</h1>
+<form method="post" asp-action="Create">
+    <div>
+    <input asp-for="ISBN" placeholder="ISBN" />
+    <span asp-validation-for="ISBN"></span>
+
+    <input asp-for="Title" placeholder="Title" />
+    <span asp-validation-for="Title"></span>
+
+    <input asp-for="Description" placeholder="Description" />
+    <span asp-validation-for="Description"></span>
+
+    <input asp-for="NumberOfCopies" placeholder="NumberOfCopies" />
+    <span asp-validation-for="NumberOfCopies"></span>
+
+    <select asp-for="Language" asp-items="@Html.GetEnumSelectList<Languages>()">
+        <option>--Select--</option>
+    </select>
+    <span asp-validation-for="Language"></span>
+
+    <input asp-for="Publisher.FirstName" placeholder="FirstName" />
+    <span asp-validation-for="Publisher.FirstName"></span>
+
+    <input asp-for="Publisher.LastName" placeholder="LastName" />
+    <span asp-validation-for="Publisher.LastName"></span>
+
+    <input asp-for="Publisher.Biography" placeholder="Biography" />
+    <span asp-validation-for="Publisher.Biography"></span>
+
+    <input asp-for="DateOfBirth" placeholder="DateOfBrith" />
+    <span asp-validation-for="DateOfBirth"></span>
+
+    <button type="submit">Create Account</button>
+    </div>
+</form>

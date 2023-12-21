@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BookStore.Data.Enum;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookStore.Models
@@ -11,12 +12,8 @@ namespace BookStore.Models
         public string? Title { get; set; }
         public string? Description {  get; set; }
         public int? NumberOfCopies { get; set; }
-        //Photo 
+        public Languages Language { get; set; }
 
-        [ForeignKey("Language")]
-        public int? IdLanguage {  get; set; }
-        public Language? Language { get; set; }  
-        
         [ForeignKey("Publisher")]
         public int? IdPublisher {  get; set; }
         public Publisher? Publisher { get; set; }

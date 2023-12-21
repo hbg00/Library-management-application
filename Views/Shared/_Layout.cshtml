@@ -8,7 +8,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BookStore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BookStore.styles.css" asp-append-version="true" />
@@ -26,22 +25,20 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Home</a>
+                                <a class="nav-link text-dark" asp-controller="Book" asp-action="Index">Dashboard</a>
                             </li>
                             @if (SignInManager.IsSignedIn(User) && User.IsInRole("librarian"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Actions with books</a>
+                                    <a class="nav-link text-dark"  asp-controller="Book" asp-action="BooksAdminPanel">Actions with books</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Actions with users</a>
+                                    <a class="nav-link text-dark" href="#">Actions with users</a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="#">Edit profile</a>
+                                </li>
                             }
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Edit profile</a>
-                            </li>
                             <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">
                                 <span su class="h6 mb-0">Logout</span>
                             </a>
