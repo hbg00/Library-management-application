@@ -6,6 +6,7 @@ namespace BookStore.Interfaces
     {
         Task<IEnumerable<Book>> GetAll();
         Task<Book?> GetByIdAsync(int id);
+        Task<Book?> GetByIdAsyncNoTracking(int id);
         Task<Book?> GetByIdAsyncForNumberOfCopies(int id);
         Task<IEnumerable<Book>> GetBookByName(string name);
         bool Add(Book book);

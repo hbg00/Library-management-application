@@ -22,7 +22,9 @@ namespace BookStore
                 (options => options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDbConnection")));
             
             builder.Services.AddScoped<IBookRepository, BookRepository>();
-            
+            builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<LibraryDbContext>();
             builder.Services.AddMemoryCache();
@@ -37,18 +39,16 @@ namespace BookStore
             if (args.Length == 1 && args[0].ToLower() == "seeddata")
             {
              
-               LibrarySeeder.SeedData(app);
+               //LibrarySeeder.SeedData(app);
                //LibrarySeeder.SeedUsersAndRoles(app);
             }
 
-            // Configure the HTTP request pipeline.
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Account/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

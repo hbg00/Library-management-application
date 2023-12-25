@@ -64,12 +64,6 @@ namespace BookStore.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        public void RegisterUser()
-        {
-
-
-        }
-
         public  void ClearCookies()
         {
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(".AspNetCore.Identity.Application");

@@ -30,13 +30,13 @@
                             @if (SignInManager.IsSignedIn(User) && User.IsInRole("librarian"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark"  asp-controller="Book" asp-action="BooksAdminPanel">Actions with books</a>
+                                    <a class="nav-link text-dark"  asp-controller="Book" asp-action="BooksAdminPanel">Actions with Books</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="#">Actions with users</a>
+                                    <a class="nav-link text-dark" asp-controller="Publisher" asp-action="PublisherAdminPanel">Actions with Publishers</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="#">Edit profile</a>
+                                    <a class="nav-link text-dark" href="#">Actions with Users</a>
                                 </li>
                             }
                             <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">

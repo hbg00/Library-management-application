@@ -24,7 +24,7 @@ namespace BookStore.ViewModels
         public Publisher Publisher { get; set; }
 
         [DataType(DataType.Date, ErrorMessage = "Incorrect value")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
     }
 }

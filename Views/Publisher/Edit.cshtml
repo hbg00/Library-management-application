@@ -1,0 +1,21 @@
+﻿@using BookStore.ViewModels;
+@model EditPublisherViewModel
+
+<h1>Edit existing book.</h1>
+<form method="post" asp-action="Edit">
+    <div>
+        <input asp-for="FirstName" placeholder="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+
+        <input asp-for="LastName" placeholder="LastName" />
+        <span asp-validation-for="LastName"></span>
+
+        <input asp-for="Biography" placeholder="Biography" />
+        <span asp-validation-for="Biography"></span>
+
+        <input asp-for="DateOfBrith" placeholder="DateOfBrith" type="date"/>
+        <span asp-validation-for="DateOfBrith"></span>
+
+        <button type="submit">Create Account</button>
+    </div>
+</form>

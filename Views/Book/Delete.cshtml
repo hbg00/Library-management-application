@@ -1,1 +1,24 @@
-﻿Delete
+﻿@model Book
+
+<div>
+    <
+    <h1>Are u sure u wanna delete it?</h1>
+    <div>
+        <p>Book information</p>
+        @Model.ISBN
+        @Model.Title
+        @Model.NumberOfCopies
+        @Model.Description
+        @Model.Language
+    </div>
+    <div>
+        <p>Publisher information</p>
+        @Model.Publisher.FirstName
+        @Model.Publisher.LastName
+        @Model.Publisher.Biography
+        @Model.Publisher.DateOfBrith
+    </div>
+</div>
+<form method="post" asp-action="DeleteBook" asp-route-id="@Model.Id">
+    <button type="submit">Confirm</button>
+</form>

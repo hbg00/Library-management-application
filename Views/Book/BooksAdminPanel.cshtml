@@ -1,6 +1,8 @@
 ﻿@using BookStore.ViewModels
 @model IEnumerable<Book>
-
+@{
+    var counter = 0;   
+}
 <div class="seraching-bar">
     <a asp-controller="Book" asp-action="Create">Add new book</a>
     <form>
@@ -14,13 +16,15 @@
         <table>
             @foreach (var book in Model)
             {
+                counter++;
                 <tr>
-                    <td>@book.Id</td>
+                    <td>@counter</td>
                     <td>@book.Title</td>
                     <td><a asp-controller="Book" asp-action="DetailBook" asp-route-id="@book.Id">View</a></td>
                     <td><a asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id">Edit</a></td>
                     <td><a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id">Delete</a></td>
                 </tr>
+                
             }
         </table>
     }
