@@ -1,5 +1,4 @@
-﻿using BookStore.Data;
-using BookStore.Interfaces;
+﻿using BookStore.Interfaces;
 using BookStore.Models;
 using BookStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -32,12 +31,23 @@ namespace BookStore.Controllers
                 FirstName = publisher.FirstName,
                 LastName = publisher.LastName,
                 Biography = publisher.Biography,
-                DateOfBrith = publisher.DateOfBrith
+                DateOfBirth = publisher.DateOfBirth
             };
 
             return View(publisherVM);
         }
+        [HttpGet]
+        public async Task<IActionResult> FilterPublishers(string searchedPhrase)
+        {
+            var filteredBooks = await _publisherRepository.GetPublisherByName(searchedPhrase);
 
+            if (filteredBooks == null || !filteredBooks.Any())
+            {
+                return View("PublisherAdminPanel", new List<Publisher>());
+            }
+
+            return View("PublisherAdminPanel", filteredBooks);
+        }
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditPublisherViewModel editPublisherVM)
         {
@@ -50,29 +60,10 @@ namespace BookStore.Controllers
                 FirstName = editPublisherVM.FirstName,
                 LastName = editPublisherVM.LastName,
                 Biography = editPublisherVM.Biography,
-                DateOfBrith = editPublisherVM.DateOfBrith
+                DateOfBirth = editPublisherVM.DateOfBirth
             };
 
             _publisherRepository.Update(publisherNew);
-            return RedirectToAction("PublisherAdminPaneL");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var publisher = await _publisherRepository.GetByIdAsync(id);
-            if (publisher == null) return View();
-
-            return View(publisher);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeletePublisher(int id) 
-        {
-            var publiser = await _publisherRepository.GetByIdAsync(id);
-            if(publiser == null) return View();
-
-            _publisherRepository.Delete(publiser);
             return RedirectToAction("PublisherAdminPaneL");
         }
     }

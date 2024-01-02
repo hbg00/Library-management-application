@@ -1,7 +1,6 @@
 ﻿@model Book
 
 <div>
-    <
     <h1>Are u sure u wanna delete it?</h1>
     <div>
         <p>Book information</p>
@@ -16,7 +15,7 @@
         @Model.Publisher.FirstName
         @Model.Publisher.LastName
         @Model.Publisher.Biography
-        @Model.Publisher.DateOfBrith
+        @Model.Publisher.DateOfBirth
     </div>
 </div>
 <form method="post" asp-action="DeleteBook" asp-route-id="@Model.Id">

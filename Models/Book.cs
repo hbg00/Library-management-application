@@ -17,6 +17,5 @@ namespace BookStore.Models
         [ForeignKey("Publisher")]
         public int? IdPublisher {  get; set; }
         public Publisher? Publisher { get; set; }
-        //Expiring time 
     }
 }

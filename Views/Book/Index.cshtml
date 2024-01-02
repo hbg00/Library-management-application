@@ -3,8 +3,8 @@
 
 
 <div class="seraching-bar-user">
-    <form>
-        <input />
+    <form asp-controller="Book" asp-action="FilterBooksUser" method="get">
+        <input name="searchedPhrase" />
         <input type="submit" />
     </form>
 </div>

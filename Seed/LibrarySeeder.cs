@@ -44,7 +44,7 @@ namespace BookStore.Seed
                                 "więc rzeczywistość opisywał tak, jak ją widział. pisarz był bardzo wrażliwy na ludzką krzywdę. Pochowano go w " +
                                 "Warszawie na Powązkach. Na pomniku wyryto napis: „Serce serc”. Pamiątki po B. Prusie zostały zgromadzone w " +
                                 "Nałęczowie, gdyż tam pisarz często bywał.",
-                                DateOfBrith = new DateTime(1847, 8, 20)
+                                DateOfBirth = new DateTime(1847, 8, 20)
                             }
 
                         },
@@ -83,7 +83,7 @@ namespace BookStore.Seed
                                 " Dolina strachu, Jego Ostatni łuk, Księga spraw Sherlocka Holmesa, Niezebrane Sherlock Holmes i Pingwin" +
                                 " Kompletny Sherlock Holmes.Zdjęcie: Walter Benington (aukcja RR) [domena publiczna w USA]," +
                                 " za pośrednictwem Wikimedia Commons.",
-                                DateOfBrith = new DateTime(1859, 5, 22)
+                                DateOfBirth = new DateTime(1859, 5, 22)
                             }
 
                         },
@@ -112,7 +112,7 @@ namespace BookStore.Seed
                                 " przed wydarzeniami z \"Gry o tron\". Martin jest także znany z żartów dotyczących tego, że uwielbia zabijać swoich" +
                                 " bohaterów, a ostatni tom sagi może być pusty z powodu braku postaci. Poza pisarstwem, Martin współpracował przy" +
                                 " projektach telewizyjnych, takich jak \"Strefa mroku\", \"Beauty and the Beast\" i \"Doorways",
-                                DateOfBrith = new DateTime(1848, 9, 20)
+                                DateOfBirth = new DateTime(1848, 9, 20)
                             }
 
                         },
@@ -142,7 +142,7 @@ namespace BookStore.Seed
                                 Biography = "Alan Alexander Milne to żyjący w latach 1882-1956 brytyjski pisarz, autor książek dla dzieci." +
                                 " Ma na swoim koncie zbiór wierszy dla dzieci oraz książki \"Kubuś Puchatek\" i \"Chatka Puchatka\"." +
                                 " W swoim dorobku ma też powieść sensacyjną \"Tajemnica Czerwonego Domu\" oraz romans \"Dwoje ludzi\".",
-                                DateOfBrith = new DateTime(1882, 1, 18)
+                                DateOfBirth = new DateTime(1882, 1, 18)
                             }
 
                         },
@@ -177,7 +177,7 @@ namespace BookStore.Seed
                                 " sławę przyniosła mu przetłumaczona na ponad 40 języków powieść \"Chłopcy z Placu Broni\". Prócz" +
                                 " kilku innych powieści i wielu opowiadań, ma na swoim koncie także liczne dramaty, z" +
                                 " których najbardziej znane to \"Diabeł\" i \"Liliom\".",
-                                DateOfBrith = new DateTime(1878, 1, 12)
+                                DateOfBirth = new DateTime(1878, 1, 12)
                             }
 
                         },
@@ -204,7 +204,7 @@ namespace BookStore.Seed
                                 " filologii angielskiej i zafascynowany literaturą staroangielską i staronordycką. Jego wpływ na gatunek" +
                                 " fantasy jest ogromny, a \"Władca Pierścieni\" stał się klasyką literatury. Zmarł 2 września 1973 roku" +
                                 " w Bournemouth, Anglia.",
-                                DateOfBrith = new DateTime(1892, 1, 3)
+                                DateOfBirth = new DateTime(1892, 1, 3)
                             }
 
                         }

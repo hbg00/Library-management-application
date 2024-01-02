@@ -24,6 +24,7 @@ namespace BookStore
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IBorrowedBookRepository, BorrowedBookRepository>();
 
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<LibraryDbContext>();

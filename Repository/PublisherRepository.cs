@@ -8,10 +8,12 @@ namespace BookStore.Repository
     public class PublisherRepository : IPublisherRepository
     {
         private readonly LibraryDbContext _context;
+
         public PublisherRepository(LibraryDbContext context)
         {
             _context = context;
         }
+
         public async Task<IEnumerable<Publisher>> GetAll()
         {
             return await _context.Publishers
@@ -50,6 +52,7 @@ namespace BookStore.Repository
             return Save();
 
         }
+
         public bool Save()
         {
             var saved =_context.SaveChanges();

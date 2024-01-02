@@ -4,6 +4,7 @@ using BookStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    partial class LibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231229233402_FixBorrowedBooksv2")]
+    partial class FixBorrowedBooksv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,7 +119,7 @@ namespace BookStore.Migrations
                     b.Property<string>("Biography")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBrith")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
@@ -361,13 +363,11 @@ namespace BookStore.Migrations
                         .WithMany()
                         .HasForeignKey("IdBook");
 
-                    b.HasOne("BookStore.Models.User", "User")
+                    b.HasOne("BookStore.Models.User", null)
                         .WithMany("BorrowedBooks")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Book");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BookStore.Models.User", b =>

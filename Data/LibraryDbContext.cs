@@ -10,6 +10,7 @@ namespace BookStore.Data
         {
 
         } 
+        public DbSet<BorrowedBook> BorrowedBooks {  get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Address> Addresss { get; set; }
         public DbSet<Publisher> Publishers { get; set; }

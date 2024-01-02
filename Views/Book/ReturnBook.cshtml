@@ -1,0 +1,61 @@
+﻿@model User
+@{
+    int counter = 0;
+    DateTime now = DateTime.Now;
+    TimeSpan daysSinceBorrowed = new TimeSpan();
+}
+
+<div class="searching-bar-user">
+    <a asp-controller="Book" asp-action="AllowBorrowBook">Let User Borrow Book Again</a>
+</div>
+
+<div class="data">
+    @if (Model != null && Model.BorrowedBooks.Any())
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Book Title</th>
+                    <th>Number of Borrowed Copies</th>
+                    <th>Return Confirmation</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var borrowedBook in Model.BorrowedBooks)
+                {
+                    counter++;
+                    daysSinceBorrowed = now - (borrowedBook.DateOfBorrow ?? DateTime.MinValue);
+
+                    <tr>
+                        <td>@counter</td>
+                        <td>@borrowedBook.Book.Title</td>
+                        <td>@borrowedBook.NumberOfBorrowedCopies</td>
+                        <td>
+                            <a asp-controller="Book"
+                               asp-action="ReturnBook"
+                               asp-route-id="@borrowedBook.IdBook"
+                               onclick="return confirm('Are you sure you want to confirm the return of this book?')">
+                                Confirm Return
+                            </a>
+                        </td>
+
+                        @if (daysSinceBorrowed.Days < 30)
+                        {
+                            <td><p style="color: green;">Good</p></td>
+                        }
+                        else
+                        {
+                            <td><p style="color: red;">Late</p></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>There are no borrowed books for this user.</p>
+    }
+</div>

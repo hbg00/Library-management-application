@@ -4,6 +4,7 @@ using BookStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    partial class LibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231228220525_ExtendExistingUserV2")]
+    partial class ExtendExistingUserV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,6 +87,9 @@ namespace BookStore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("DateOfBorrow")
                         .HasColumnType("datetime2");
 
@@ -94,14 +99,9 @@ namespace BookStore.Migrations
                     b.Property<int?>("NumberOfBorrowedCopies")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("IdBook");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("BookId");
 
                     b.ToTable("BorrowedBooks");
                 });
@@ -117,7 +117,7 @@ namespace BookStore.Migrations
                     b.Property<string>("Biography")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBrith")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
@@ -157,6 +157,9 @@ namespace BookStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("IdAddress")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdBorrowedBook")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -201,6 +204,8 @@ namespace BookStore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IdAddress");
+
+                    b.HasIndex("IdBorrowedBook");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -359,15 +364,9 @@ namespace BookStore.Migrations
                 {
                     b.HasOne("BookStore.Models.Book", "Book")
                         .WithMany()
-                        .HasForeignKey("IdBook");
-
-                    b.HasOne("BookStore.Models.User", "User")
-                        .WithMany("BorrowedBooks")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("BookId");
 
                     b.Navigation("Book");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BookStore.Models.User", b =>
@@ -376,7 +375,13 @@ namespace BookStore.Migrations
                         .WithMany()
                         .HasForeignKey("IdAddress");
 
+                    b.HasOne("BookStore.Models.BorrowedBook", "BorrowedBook")
+                        .WithMany()
+                        .HasForeignKey("IdBorrowedBook");
+
                     b.Navigation("Address");
+
+                    b.Navigation("BorrowedBook");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -428,11 +433,6 @@ namespace BookStore.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BookStore.Models.User", b =>
-                {
-                    b.Navigation("BorrowedBooks");
                 });
 #pragma warning restore 612, 618
         }

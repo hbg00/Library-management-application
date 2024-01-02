@@ -5,8 +5,8 @@
 }
 <div class="seraching-bar">
     <a asp-controller="Book" asp-action="Create">Add new book</a>
-    <form>
-        <input />
+    <form asp-controller="Book" asp-action="FilterBooksAdmin" method="get">
+        <input name="searchedPhrase" />
         <input type="submit"/>
     </form>
 </div>
@@ -30,6 +30,6 @@
     }
     else
     {
-        <p>There are no books in the database yet.</p>
+        <p>There are no books in the database.</p>
     }
 </div>

@@ -7,7 +7,6 @@
     <div>
         <input type="hidden" asp-for="IdPublisher" id="IdPublisher" />
 
-
         <input asp-for="ISBN" placeholder="ISBN" />
         <span asp-validation-for="ISBN"></span>
 
@@ -34,8 +33,9 @@
         <input asp-for="Publisher.Biography" placeholder="Biography" />
         <span asp-validation-for="Publisher.Biography"></span>
 
-        <input asp-for="Publisher.DateOfBrith" placeholder="DateOfBirth" type="date" />
-        <span asp-validation-for="Publisher.DateOfBrith"></span>
+        <input asp-for="Publisher.DateOfBirth" placeholder="DateOfBirth" type="date" />
+        <span asp-validation-for="Publisher.DateOfBirth"></span>
+        
         <button type="submit">Update Book</button>
     </div>
 </form>

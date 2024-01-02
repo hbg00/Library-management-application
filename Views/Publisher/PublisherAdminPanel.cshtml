@@ -5,8 +5,8 @@
 }
 
 <div class="seraching-bar-user">
-    <form>
-        <input />
+    <form asp-controller="Publisher" asp-action="FilterPublishers" method="get">
+        <input name="searchedPhrase" />
         <input type="submit" />
     </form>
 </div>
@@ -22,7 +22,6 @@
                     <td>@publisher.FirstName</td>
                     <td>@publisher.LastName</td>
                     <td><a asp-controller="Publisher" asp-action="Edit" asp-route-id="@publisher.Id">Edit</a></td>
-                    <td><a asp-controller="Publisher" asp-action="Delete" asp-route-id="@publisher.Id">Delete</a></td>
                 </tr>
             }
         </table>
