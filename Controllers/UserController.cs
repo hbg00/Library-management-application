@@ -2,6 +2,7 @@
 using BookStore.Interfaces;
 using BookStore.Models;
 using BookStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> UserAdminPanel()
         {
             var users = await _userRepository.GetAll();
@@ -25,6 +27,7 @@ namespace BookStore.Controllers
         }
         
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> FilterUsers(string searchedPhrase)
         {
             var filteredBooks = await _userRepository.GetUserByPesel(searchedPhrase);
@@ -38,6 +41,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public IActionResult Create()
         {
             var registerVM = new RegisterViewModel();
@@ -45,6 +49,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> Create(RegisterViewModel registerVM)
         {
             if (!ModelState.IsValid) return View("Create", registerVM);
@@ -88,6 +93,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> Edit(string id)
         {
             var user =  await _userRepository.GetById(id);
@@ -108,6 +114,7 @@ namespace BookStore.Controllers
         }
         
         [HttpPost]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> Edit(string id, EditUserViewModel userVM) 
         {
             if (!ModelState.IsValid) return View("Edit", userVM);
@@ -164,6 +171,7 @@ namespace BookStore.Controllers
         }
        
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _userRepository.GetById(id);
@@ -171,6 +179,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> DeleteUser(string id) 
         {
             var user = await _userRepository.GetByIdAsyncNoTracking(id);

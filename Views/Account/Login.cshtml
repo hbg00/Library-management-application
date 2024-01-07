@@ -4,18 +4,31 @@
 @using BookStore.ViewModels;
 @model LoginViewModel;
 
+<div class="container-login">
+    <div class="login">
+        <div class="login-img">
+            <img src="photo/login-photo.jpg" alt="loginPhoto"/>
+        </div>
+        <div class="login-section">
+            <form class="login-form" asp-action="Login">
+                <h3>Login</h3>
+                <p>If you do not have an account, please contact the librarian.</p>
+                <label class="login-labels" asp-for="Email">Email</label>
+                <input class="login-inputs" asp-for="Email" />
+                <span class="login-spans" asp-validation-for="Email"></span>
 
-@if(TempData["Error"] != null)
-{
-    <div >
-        <p>@TempData["Error"]</p>
+                <label class="login-labels" asp-for="Password">Password</label>
+                <input class="login-inputs" asp-for="Password" type="password" />
+                <span class="login-spans" asp-validation-for="Password"></span>
+
+                <input class="login-button" type="submit" value="Log in"/>
+                @if (TempData["Error"] != null)
+                {
+                    <div class="login-error">
+                        <p>@TempData["Error"]</p>
+                    </div>
+                }
+            </form>
+        </div>
     </div>
-}
-
-<form asp-action="Login">
-    <label asp-for="Email">Login:</label>
-    <input asp-for="Email"/>
-    <label asp-for="Password">Password:</label>
-    <input asp-for="Password" type="password"/>
-    <input type="submit" value="Log in"/>
-</form>
+</div>

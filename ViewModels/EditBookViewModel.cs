@@ -12,6 +12,7 @@ namespace BookStore.ViewModels
         [RegularExpression(@"^\d{10}(\d{3})?$", ErrorMessage = "Incorrect value of ISBN")]
         public string ?ISBN { get; set; }
 
+        [Required]
         [StringLength(255, ErrorMessage = "Incorrect Length of Title.")]
         public string ?Title { get; set; }
 
@@ -23,8 +24,7 @@ namespace BookStore.ViewModels
         public int ?NumberOfCopies { get; set; }
 
         public Languages Language { get; set; }
-        public int? IdPublisher { get; set; }
-        public Publisher? Publisher { get; set; }
 
+        public int? IdPublisher { get; set; }
     }
 }

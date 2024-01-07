@@ -4,26 +4,49 @@
     var counter = 0;
 }
 
-<div class="seraching-bar-user">
+<div class="searching-bar-user">
     <form asp-controller="Publisher" asp-action="FilterPublishers" method="get">
-        <input name="searchedPhrase" />
-        <input type="submit" />
+        <input class ="searching-input" name="searchedPhrase" placeholder="Publisher First Name"/>
+        <input class="button" type="submit" value="Search" />
     </form>
 </div>
 <div class="data">
     @if (Model != null)
     {
-        <table>
-            @foreach (var publisher in Model)
-            {
-                counter++;
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@counter</td>
-                    <td>@publisher.FirstName</td>
-                    <td>@publisher.LastName</td>
-                    <td><a asp-controller="Publisher" asp-action="Edit" asp-route-id="@publisher.Id">Edit</a></td>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Edit</th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var publisher in Model)
+                {
+                    counter++;
+                    if (counter % 2 == 0)
+                    {
+                        <tr class="active-row">
+                            <td>@counter</td>
+                            <td>@publisher.FirstName</td>
+                            <td>@publisher.LastName</td>
+                            <td><a class="button" asp-controller="Publisher" asp-action="Edit" asp-route-id="@publisher.Id">Edit</a></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@publisher.FirstName</td>
+                            <td>@publisher.LastName</td>
+                            <td><a class="button" asp-controller="Publisher" asp-action="Edit" asp-route-id="@publisher.Id">Edit</a></td>
+                        </tr>
+                    
+                    }
+                }
+            </tbody>
         </table>
     }
     else

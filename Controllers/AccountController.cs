@@ -1,6 +1,7 @@
 ﻿using BookStore.Interfaces;
 using BookStore.Models;
 using BookStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,16 +10,13 @@ namespace BookStore.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IUserRepository _userRepository;
 
-        public AccountController(ILogger<AccountController> logger, IHttpContextAccessor httpContextAccessor
-            ,UserManager<User> userManager, SignInManager<User> signInManager ,IUserRepository userRepository)
+        public AccountController(ILogger<AccountController> logger, UserManager<User> userManager, SignInManager<User> signInManager ,IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _httpContextAccessor = httpContextAccessor;
             _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -32,6 +30,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {
             if (!ModelState.IsValid) return View(loginVM);
@@ -46,9 +45,9 @@ namespace BookStore.Controllers
                     if (result.Succeeded)
                     {
                         var curUser = await _userRepository.GetDataForBorrowedBooks(user);
-                        foreach( var c in curUser.BorrowedBooks) 
+                        foreach( var borrowedBook in curUser.BorrowedBooks) 
                         {
-                            if (CheckingDate(c.DateOfBorrow))
+                            if (CheckingDate(borrowedBook.DateOfBorrow))
                             {
                                 continue;
                             }
@@ -74,34 +73,26 @@ namespace BookStore.Controllers
                 return View(loginVM);
             }
 
-            TempData["Error"] = "Email is invalid.";
+            TempData["Error"] = "Email does not exist.";
             return View(loginVM);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Logout() 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogOff() 
         {
             await _signInManager.SignOutAsync();
-            ClearCookies();
             return RedirectToAction("Login", "Account");
         }
         
-        public bool CheckingDate(DateTime? a) 
+        public bool CheckingDate(DateTime? dateOfBorrow) 
         {
-            var dateOfBorrow =  a;
-
             TimeSpan difference = new TimeSpan();
             if (dateOfBorrow != null)
             {
                 difference = (TimeSpan)(DateTime.Now - dateOfBorrow);
             }
-            return difference.TotalDays < 30;
-          
-        }
-        public  void ClearCookies()
-        {
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(".AspNetCore.Identity.Application");
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(".AspNetCore.Antiforgery.MoniFWH1kX0");
+            return difference.TotalDays < 30; 
         }
     }
 }

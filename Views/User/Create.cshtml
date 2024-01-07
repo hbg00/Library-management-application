@@ -1,33 +1,57 @@
 ﻿@using BookStore.ViewModels
 @model RegisterViewModel
 
-<h1>Add new user to database.</h1>
-<form method="post" asp-action="Create">
+<h1 class="input-h1">Add new user to the database.</h1>
+<form class="input-form" method="post" asp-action="Create">
     <div>
-        <input asp-for="FirstName" placeholder="FirstName" />
-        <span asp-validation-for="FirstName"></span>
+        <section>
+            <label for="FirstName">First Name:</label>
+            <input asp-for="FirstName" placeholder="FirstName" />
+            <span asp-validation-for="FirstName"></span>
+        </section>
 
-        <input asp-for="LastName" placeholder="LastName" />
-        <span asp-validation-for="LastName"></span>
+        <section>
+            <label for="LastName">Last Name:</label>
+            <input asp-for="LastName" placeholder="LastName" />
+            <span asp-validation-for="LastName"></span>
+        </section>
 
-        <input asp-for="Email" placeholder="Email" />
-        <span asp-validation-for="Email"></span>
+        <section>
+            <label for="Email">Email:</label>
+            <input asp-for="Email" placeholder="Email" />
+            <span asp-validation-for="Email"></span>
+        </section>
 
-        <input asp-for="Pesel" placeholder="Pesel" />
-        <span asp-validation-for="Pesel"></span>
+        <section>
+            <label for="Pesel">Pesel:</label>
+            <input asp-for="Pesel" placeholder="Pesel" />
+            <span asp-validation-for="Pesel"></span>
+        </section>
 
-        <input asp-for="Password" placeholder="Password" type="password" />
-        <span asp-validation-for="Password"></span>
+        <section>
+            <label for="Password">Password:</label>
+            <input asp-for="Password" placeholder="Password" type="password" />
+            <span asp-validation-for="Password"></span>
+        </section>
 
-        <input asp-for="City" placeholder="City" />
-        <span asp-validation-for="City"></span>
+        <section>
+            <label for="City">City:</label>
+            <input asp-for="City" placeholder="City" />
+            <span asp-validation-for="City"></span>
+        </section>
 
-        <input asp-for="PostalCode" placeholder="PostalCode" />
-        <span asp-validation-for="PostalCode"></span>
+        <section>
+            <label for="PostalCode">Postal Code:</label>
+            <input asp-for="PostalCode" placeholder="PostalCode" />
+            <span asp-validation-for="PostalCode"></span>
+        </section>
 
-        <input asp-for="Street" placeholder="Street" />
-        <span asp-validation-for="Street"></span>
+        <section>
+            <label for="Street">Street:</label>
+            <input asp-for="Street" placeholder="Street" />
+            <span asp-validation-for="Street"></span>
+        </section>
 
-        <button type="submit">Create Account for user</button>
+        <button class="button" type="submit">Create Account for User</button>
     </div>
 </form>

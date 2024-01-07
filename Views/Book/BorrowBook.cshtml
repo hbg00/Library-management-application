@@ -3,12 +3,14 @@
 @if (Model.NumberOfCopies > 0)
 {
     <form asp-action="BorrowBookConfirm">
-        <input type="number" name="numberOfWantedCopies"/>
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Confirm"/>
+        <label for="numberOfWantedCopies">Number of Copies:</label>
+        <input type="number" name="numberOfWantedCopies" required min="1" />
+
+        <input type="submit" value="Confirm" />
     </form>
 }
 else
 {
-    <p>Sorry, this book is not avalible now.</p>    
+    <p>Sorry, this book is not available now.</p>
 }

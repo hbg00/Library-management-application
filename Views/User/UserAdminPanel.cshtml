@@ -3,28 +3,52 @@
     var counter = 0;
 }
 
-<div class="seraching-bar">
-    <a asp-controller="User" asp-action="Create">Register new User</a>
+<div class="searching-bar">
+    <a class="button" asp-controller="User" asp-action="Create">Register new User</a>
     <form asp-controller="User" asp-action="FilterUsers" method="get">
-        <input name="searchedPhrase" />
-        <input type="submit" />
+        <input class="searching-input"  name="searchedPhrase" placeholder="User PESEL" />
+        <input class="button" type="submit" value="Search" />
     </form>
 </div>
 <div class="data">
     @if (Model.Any())
     {
-        <table>
-            @foreach (var user in Model)
-            {
-                counter++;
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@counter</td>
-                    <td>@user.Pesel</td>
-                    <td><a asp-controller="Book" asp-action="ReturnBook" asp-route-id="@user.Id">Return Book</a></td>
-                    <td><a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Edit User</a></td>
-                    <td><a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Delete</a></td>
+                    <th>#</th>
+                    <th>Pesel</th>
+                    <th>Action</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    counter++;
+                    if (counter % 2 == 0)
+                    {
+                        <tr class="active-row">
+                            <td>@counter</td>
+                            <td>@user.Pesel</td>
+                            <td><a class="button" asp-controller="Book" asp-action="ReturnBook" asp-route-id="@user.Id">Return Book</a></td>
+                            <td><a class="button" asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Edit User</a></td>
+                            <td><a class="button" asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Delete</a></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@user.Pesel</td>
+                            <td><a class="button" asp-controller="Book" asp-action="ReturnBook" asp-route-id="@user.Id">Return Book</a></td>
+                            <td><a class="button" asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Edit User</a></td>
+                            <td><a class="button" asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Delete</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
         </table>
     }
     else

@@ -1,11 +1,13 @@
 ﻿using BookStore.Interfaces;
 using BookStore.Models;
 using BookStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
+    [Authorize]
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
@@ -22,6 +24,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian,user")]
         public async Task<IActionResult> Index()
         {
             IEnumerable<Book> books = await _bookRepository.GetAll();
@@ -30,6 +33,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian,user")]
         public async Task<IActionResult> DetailBook(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
@@ -38,6 +42,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> BooksAdminPanel()
         {
             var books = await _bookRepository.GetAll();
@@ -45,6 +50,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public IActionResult Create()
         {
             var bookVM = new CreateBookViewModel();
@@ -52,6 +58,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "librarian")]
         public IActionResult Create(CreateBookViewModel bookVM)
         {
             if (ModelState.IsValid)
@@ -80,6 +87,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> Edit(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
@@ -94,13 +102,13 @@ namespace BookStore.Controllers
                 NumberOfCopies = book.NumberOfCopies,
                 Language = book.Language,
                 IdPublisher = book.IdPublisher,
-                Publisher = book.Publisher
             };
 
             return View(bookVM);
         }
 
         [HttpPost]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> Edit(int id, EditBookViewModel editVM)
         {
             if (!ModelState.IsValid) return View("Edit", editVM);
@@ -109,7 +117,7 @@ namespace BookStore.Controllers
 
             if (bookDb == null) return View("Error");
 
-            if (editVM.IdPublisher.HasValue && editVM.Publisher != null)
+            if (editVM.IdPublisher.HasValue)
             {
                 var book = new Book
                 {
@@ -120,14 +128,6 @@ namespace BookStore.Controllers
                     NumberOfCopies = editVM.NumberOfCopies,
                     Language = editVM.Language,
                     IdPublisher = editVM.IdPublisher,
-                    Publisher = new Publisher
-                    {
-                        Id = (int)editVM.IdPublisher,
-                        FirstName = editVM.Publisher.FirstName,
-                        LastName = editVM.Publisher.LastName,
-                        Biography = editVM.Publisher.Biography,
-                        DateOfBirth = editVM.Publisher.DateOfBirth
-                    }
                 };
 
                 _bookRepository.Update(book);
@@ -141,6 +141,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> Delete(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
@@ -151,6 +152,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> DeleteBook(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
@@ -162,6 +164,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "user")]
         public async Task<IActionResult> BorrowBook(int id)
         {
             var book = await _bookRepository.GetByIdAsyncForNumberOfCopies(id);
@@ -170,9 +173,10 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "user")]
         public async Task<IActionResult> BorrowBookConfirm(int id, int numberOfWantedCopies)
         {
-            // To make validation handle numberOfCopies in minus case
+            if (numberOfWantedCopies < 0) return NotFound();
 
             var book = await _bookRepository.GetByIdAsyncNoTracking(id);
             var curUser = await _userManager.GetUserAsync(User);
@@ -212,6 +216,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> ReturnBook(string id)
         {
 
@@ -225,24 +230,27 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> ReturnBook(int id)
         {
             var borrowedBook = await _borrowedBookRepository.GetByIdAsyncNoTracking(id);
-
+            var userId = borrowedBook.UserId;
             if (borrowedBook == null) return NotFound();
 
             var book = await _bookRepository.GetByIdAsyncNoTracking((int)borrowedBook.IdBook);
 
             if (book == null) return NotFound();
 
+            
             book.NumberOfCopies += borrowedBook.NumberOfBorrowedCopies;
             _borrowedBookRepository.Delete(borrowedBook);
             _bookRepository.Update(book);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ReturnBook", new { id = userId });
         }
 
         [HttpPost]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> AllowBorrowBook()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -260,6 +268,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian,user")]
         public async Task<IActionResult> FilterBooksUser(string searchedPhrase)
         {
             var filteredBooks = await _bookRepository.GetBooksByName(searchedPhrase);
@@ -273,7 +282,8 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> FilterBooksA(string searchedPhrase)
+        [Authorize(Roles = "librarian,user")]
+        public async Task<IActionResult> FilterBooksAdmin(string searchedPhrase)
         {
             var filteredBooks = await _bookRepository.GetBooksByName(searchedPhrase);
 

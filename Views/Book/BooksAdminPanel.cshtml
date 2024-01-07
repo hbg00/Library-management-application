@@ -1,32 +1,58 @@
 ﻿@using BookStore.ViewModels
 @model IEnumerable<Book>
 @{
-    var counter = 0;   
+    var counter = 0;  
 }
-<div class="seraching-bar">
-    <a asp-controller="Book" asp-action="Create">Add new book</a>
+
+<div class="searching-bar">
+    <a class="button" asp-controller="Book" asp-action="Create">Add new book</a>
     <form asp-controller="Book" asp-action="FilterBooksAdmin" method="get">
-        <input name="searchedPhrase" />
-        <input type="submit"/>
+        <input class="searching-input" name="searchedPhrase" placeholder="Book Title" />
+        <input class="button" type="submit" value="Search" />
     </form>
 </div>
 <div class="data">
-    @if (Model != null)
+    @if (Model.Any())
     {
-        <table>
-            @foreach (var book in Model)
-            {
-                counter++;
-                <tr>
-                    <td>@counter</td>
-                    <td>@book.Title</td>
-                    <td><a asp-controller="Book" asp-action="DetailBook" asp-route-id="@book.Id">View</a></td>
-                    <td><a asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id">Edit</a></td>
-                    <td><a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id">Delete</a></td>
+        <table class="table">
+            <thead>
+                <tr >
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
-                
-            }
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    counter++;
+                     @if(counter % 2 == 0)
+                    {
+                    
+                        <tr class="active-row">
+                            <td>@counter</td>
+                            <td>@book.Title</td>
+                            <td><a class="button" asp-controller="Book" asp-action="DetailBook" asp-route-id="@book.Id">View</a></td>
+                            <td><a class="button" asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id">Edit</a></td>
+                            <td><a class="button" asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id">Delete</a></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@book.Title</td>
+                            <td><a class="button" asp-controller="Book" asp-action="DetailBook" asp-route-id="@book.Id">View</a></td>
+                            <td><a class="button" asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id">Edit</a></td>
+                            <td><a class="button" asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id">Delete</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
         </table>
+
     }
     else
     {

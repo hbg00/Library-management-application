@@ -27,12 +27,8 @@ namespace BookStore
             builder.Services.AddScoped<IBorrowedBookRepository, BorrowedBookRepository>();
 
             builder.Services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<LibraryDbContext>();
-            builder.Services.AddMemoryCache();
-            builder.Services.AddSession();
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                   .AddCookie();
-
+                .AddEntityFrameworkStores<LibraryDbContext>()
+                .AddDefaultTokenProviders();
 
             var app = builder.Build();
 
@@ -44,7 +40,6 @@ namespace BookStore
                //LibrarySeeder.SeedUsersAndRoles(app);
             }
 
-
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Account/Error");
@@ -53,8 +48,9 @@ namespace BookStore
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSession();
+
             app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

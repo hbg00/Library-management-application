@@ -1,10 +1,12 @@
 ﻿using BookStore.Interfaces;
 using BookStore.Models;
 using BookStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
+    [Authorize]
     public class PublisherController : Controller
     {
         private readonly IPublisherRepository _publisherRepository;
@@ -12,8 +14,9 @@ namespace BookStore.Controllers
         {
             _publisherRepository = publisherRepository;
         }
-
+       
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> PublisherAdminPanel()
         {
             var publishers = await _publisherRepository.GetAll();
@@ -21,6 +24,7 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> Edit(int id)
         {
             var publisher = await _publisherRepository.GetByIdAsync(id);
@@ -36,7 +40,9 @@ namespace BookStore.Controllers
 
             return View(publisherVM);
         }
+
         [HttpGet]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> FilterPublishers(string searchedPhrase)
         {
             var filteredBooks = await _publisherRepository.GetPublisherByName(searchedPhrase);
@@ -48,7 +54,9 @@ namespace BookStore.Controllers
 
             return View("PublisherAdminPanel", filteredBooks);
         }
+
         [HttpPost]
+        [Authorize(Roles = "librarian")]
         public async Task<IActionResult> Edit(int id, EditPublisherViewModel editPublisherVM)
         {
             var publisher = await _publisherRepository.GetByIdAsyncNoTracking(id);

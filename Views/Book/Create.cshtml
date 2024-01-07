@@ -2,38 +2,65 @@
 @using BookStore.ViewModels
 @model CreateBookViewModel
 
-<h1>Adding new book to database.</h1>
-<form method="post" asp-action="Create">
+<h1 class="input-h1">Adding new book to database.</h1>
+<form class="input-form" method="post" asp-action="Create">
     <div>
-    <input asp-for="ISBN" placeholder="ISBN" />
-    <span asp-validation-for="ISBN"></span>
+        <section>
+            <label for="ISBN">ISBN:</label>
+            <input asp-for="ISBN" placeholder="ISBN" />
+            <span asp-validation-for="ISBN"></span>
+        </section>
 
-    <input asp-for="Title" placeholder="Title" />
-    <span asp-validation-for="Title"></span>
+        <section>
+            <label for="Title">Title:</label>
+            <input asp-for="Title" placeholder="Title" />
+            <span asp-validation-for="Title"></span>
+        </section>
 
-    <input asp-for="Description" placeholder="Description" />
-    <span asp-validation-for="Description"></span>
+        <section>
+            <label for="Description">Description:</label>
+            <textarea asp-for="Description" placeholder="Description"></textarea>
+            <span asp-validation-for="Description"></span>
+        </section>
 
-    <input asp-for="NumberOfCopies" placeholder="NumberOfCopies" />
-    <span asp-validation-for="NumberOfCopies"></span>
+        <section>
+            <label for="NumberOfCopies">Number of Copies:</label>
+            <input asp-for="NumberOfCopies" placeholder="NumberOfCopies" />
+            <span asp-validation-for="NumberOfCopies"></span>
+        </section>
 
-    <select asp-for="Language" asp-items="@Html.GetEnumSelectList<Languages>()">
-        <option>--Select--</option>
-    </select>
-    <span asp-validation-for="Language"></span>
+        <section class="list">
+            <label for="Language">Language:</label>
+            <select asp-for="Language" asp-items="@Html.GetEnumSelectList<Languages>()">
+                <option>--Select--</option>
+            </select>
+            <span asp-validation-for="Language"></span>
+        </section>
 
-    <input asp-for="Publisher.FirstName" placeholder="FirstName" />
-    <span asp-validation-for="Publisher.FirstName"></span>
+        <section>
+            <label for="Publisher.FirstName">Publisher First Name:</label>
+            <input asp-for="Publisher.FirstName" placeholder="FirstName" />
+            <span asp-validation-for="Publisher.FirstName"></span>
+        </section>
 
-    <input asp-for="Publisher.LastName" placeholder="LastName" />
-    <span asp-validation-for="Publisher.LastName"></span>
+        <section>
+            <label for="Publisher.LastName">Publisher Last Name:</label>
+            <input asp-for="Publisher.LastName" placeholder="LastName" />
+            <span asp-validation-for="Publisher.LastName"></span>
+        </section>
 
-    <input asp-for="Publisher.Biography" placeholder="Biography" />
-    <span asp-validation-for="Publisher.Biography"></span>
+        <section>
+            <label for="Publisher.Biography">Publisher Biography:</label>
+            <textarea asp-for="Publisher.Biography" placeholder="Biography"></textarea>
+            <span asp-validation-for="Publisher.Biography"></span>
+        </section>
 
-    <input asp-for="DateOfBirth" placeholder="DateOfBrith" />
-    <span asp-validation-for="DateOfBirth"></span>
+        <section>
+            <label for="DateOfBirth">Date of Birth:</label>
+            <input asp-for="DateOfBirth" type="date" placeholder="DateOfBirth" />
+            <span asp-validation-for="DateOfBirth"></span>
+        </section>
 
-    <button type="submit">Create Book</button>
+        <button class="button "type="submit">Create Book</button>
     </div>
 </form>

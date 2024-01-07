@@ -247,6 +247,7 @@ namespace BookStore.Seed
                         FirstName = "Ema",
                         LastName = "Miler",
                         Pesel = "00000000001",
+                        CanBorrow = false,
                         Address = new Address()
                         {
                             PostalCode = "32-640",
@@ -273,6 +274,7 @@ namespace BookStore.Seed
                         FirstName = "test",
                         LastName = "test",
                         Pesel = "00000000000",
+                        CanBorrow = true,
                         Address = new Address()
                         {
                             PostalCode = "12-345",

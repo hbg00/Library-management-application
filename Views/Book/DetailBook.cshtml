@@ -1,7 +1,30 @@
 ﻿@model Book
-@Model.Language
 
+<article class="bookdetail">
+    <div class="bookdetail-img">
+        <img src="~/photo/login-photo.jpg" alt="bookphoto" />
+    </div>
 
+    <article class="bookdetail-info">
+        <div class="bookdetail-book">
+            <h1>Book Details</h1>
+            <ul>
+                <li><strong>Title:</strong> @Model.Title</li>
+                <li><strong>Description:</strong> @Model.Description</li>
+                <li><strong>Number of Copies:</strong> @Model.NumberOfCopies</li>
+                <li><strong>Language:</strong> @Model.Language</li>
+                <li><strong>ISBN:</strong> @Model.ISBN</li>
+            </ul>
+        </div>
 
-
-
+        <div class="bookdetail-publisher">
+            <h1>Publisher Details</h1>
+            <ul>
+                <li><strong>First Name:</strong> @Model.Publisher.FirstName</li>
+                <li><strong>Last Name:</strong> @Model.Publisher.LastName</li>
+                <li><strong>Biography:</strong> @Model.Publisher.Biography</li>
+                <li><strong>Date of Birth:</strong> @Model?.Publisher?.DateOfBirth?.ToString("dd-MM-yyyy")</li>
+            </ul>
+        </div>
+    </article>
+</article>

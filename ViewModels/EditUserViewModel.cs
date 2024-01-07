@@ -14,9 +14,8 @@ namespace BookStore.ViewModels
         [Required]
         [RegularExpression(@"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Password doesnt match with requirements")]
         public string? Email { get; set; }
-        /* !!!!!!!!!!! */
+        [Required]
         public string? Password { get; set; }
-        /* !!!!!!!!!!! */
         public int? IdAddress { get; set; }
         [Required]
         public string? Street { get; set; }

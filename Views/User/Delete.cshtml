@@ -1,19 +1,22 @@
 ﻿@model User
 
-<div>
-    <h1>Are u sure u wanna delete it?</h1>
-    <div>
-        <p>Publisher information</p>
-        @Model.Pesel
-        @Model.FirstName
-        @Model.LastName
-        @Model.Email
-        @Model.Address.City
-        @Model.Address.PostalCode
-        @Model.Address.Street
-        
-    </div>
+<div class="delete-user">
+    <section class="user-info">
+        <h1>Confirm Deletion</h1>
+        <div class="display-info">
+            <h2>User Information:</h2>
+            <ul>
+                <li><strong>Pesel:</strong> @Model.Pesel</li>
+                <li><strong>First Name:</strong> @Model.FirstName</li>
+                <li><strong>Last Name:</strong> @Model.LastName</li>
+                <li><strong>Email:</strong> @Model.Email</li>
+                <li><strong>City:</strong> @Model.Address.City</li>
+                <li><strong>Postal Code:</strong> @Model.Address.PostalCode</li>
+                <li><strong>Street:</strong> @Model.Address.Street</li>
+            </ul>
+        </div>
+    </section>
+    <form method="post" asp-action="DeleteUser" asp-route-id="@Model.Id">
+        <button class="button" type="submit">Delete User</button>
+    </form>
 </div>
-<form method="post" asp-action="DeleteUser" asp-route-id="@Model.Id">
-    <button type="submit">Confirm</button>
-</form>

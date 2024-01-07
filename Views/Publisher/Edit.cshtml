@@ -1,21 +1,33 @@
 ﻿@using BookStore.ViewModels;
 @model EditPublisherViewModel
 
-<h1>Edit existing book.</h1>
-<form method="post" asp-action="Edit">
+<h1 class="input-h1" >Edit existing book.</h1>
+<form class="input-form" method="post" asp-action="Edit">
     <div>
-        <input asp-for="FirstName" placeholder="FirstName" />
-        <span asp-validation-for="FirstName"></span>
+        <section>
+            <label for="FirstName">First Name:</label>
+            <input asp-for="FirstName" placeholder="FirstName" />
+            <span asp-validation-for="FirstName"></span>
+        </section>
 
-        <input asp-for="LastName" placeholder="LastName" />
-        <span asp-validation-for="LastName"></span>
+        <section>
+            <label for="LastName">Last Name:</label>
+            <input asp-for="LastName" placeholder="LastName" />
+            <span asp-validation-for="LastName"></span>
+        <section>
 
-        <input asp-for="Biography" placeholder="Biography" />
-        <span asp-validation-for="Biography"></span>
+        </section>
+            <label for="Biography">Biography:</label>
+            <textarea asp-for="Biography" placeholder="Biography"></textarea>
+            <span asp-validation-for="Biography"></span>
+        </section>
 
-        <input asp-for="DateOfBirth" placeholder="DateOfBirth" type="date" />
-        <span asp-validation-for="DateOfBirth"></span>
+        <section>
+            <label for="DateOfBirth">Date of Birth:</label>
+            <input asp-for="DateOfBirth" type="date" placeholder="DateOfBirth" />
+            <span asp-validation-for="DateOfBirth"></span>
+        </section>
 
-        <button type="submit">Create Account</button>
+        <button class="button" type="submit">Update Publisher</button>
     </div>
 </form>

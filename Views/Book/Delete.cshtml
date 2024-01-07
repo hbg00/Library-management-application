@@ -1,23 +1,33 @@
 ﻿@model Book
 
-<div>
-    <h1>Are u sure u wanna delete it?</h1>
-    <div>
-        <p>Book information</p>
-        @Model.ISBN
-        @Model.Title
-        @Model.NumberOfCopies
-        @Model.Description
-        @Model.Language
-    </div>
-    <div>
-        <p>Publisher information</p>
-        @Model.Publisher.FirstName
-        @Model.Publisher.LastName
-        @Model.Publisher.Biography
-        @Model.Publisher.DateOfBirth
-    </div>
+<div class="delete">
+   
+    <article>
+        <h1 class="delete-h1">Are you sure you want to delete the following book?</h1>
+        <section class="delete-book">
+            <h2>Book Information</h2>
+            <ul>
+                <li><strong>ISBN:</strong> @Model.ISBN</li>
+                <li><strong>Title:</strong> @Model.Title</li>
+                <li><strong>Number of Copies:</strong> @Model.NumberOfCopies</li>
+                <li><strong>Description:</strong> @Model.Description</li>
+                <li><strong>Language:</strong> @Model.Language</li>
+            </ul>
+        </section>
+
+        <section class="delete-publisher">
+            <h2>Publisher Information</h2>
+            <ul>
+                <li><strong>First Name:</strong> @Model.Publisher.FirstName</li>
+                <li><strong>Last Name:</strong> @Model.Publisher.LastName</li>
+                <li><strong>Biography:</strong> @Model.Publisher.Biography</li>
+                <li><strong>Date of Birth:</strong> @Model.Publisher.DateOfBirth</li>
+            </ul>
+        </section>
+    </article>
+    <form method="post" asp-action="DeleteBook" asp-route-id="@Model.Id">
+        <button class="button" type="submit">Delete Book and Publisher</button>
+    </form>
 </div>
-<form method="post" asp-action="DeleteBook" asp-route-id="@Model.Id">
-    <button type="submit">Confirm</button>
-</form>
+
+
